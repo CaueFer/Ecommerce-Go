@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  go-app:
-    container_name: go-app
-    image: postgres:12
+  ecommerce-go-api:
+    container_name: ecommerce-go-api
+    image: ecommerce-go
     build: .
     ports:
       - "8000:8000"
