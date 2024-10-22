@@ -1,18 +1,19 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"ecommerce-go/controller"
-	"ecommerce-go/usecase"
 	"ecommerce-go/db"
 	"ecommerce-go/repository"
+	"ecommerce-go/usecase"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	server := gin.Default()
-	
+
 	dbConnection, err := db.ConnectDB()
-	if(err != nil){
+	if err != nil {
 		panic(err)
 	}
 
@@ -25,7 +26,6 @@ func main() {
 	// CONTROLLERS
 	ProductController := controller.NewProductController(ProductUseCase)
 
-
 	// ROUTES
 	server.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
@@ -34,6 +34,8 @@ func main() {
 	})
 
 	server.GET("/products", ProductController.GetProducts)
+
+	server.GET("/product/:productId", ProductController.GetProductById)
 
 	server.POST("/product", ProductController.CreateProduct)
 
